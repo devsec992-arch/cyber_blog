@@ -86,12 +86,23 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+        // SECURE per bloccare l'accesso alla pagina di modifica a chi non è l'autore dell'articolo
+        if(Auth::id() !== $article->user_id && !Auth::user()->isAdmin()){
+            return redirect()->route('articles.show', $article)->with('message','Not authorized');
+        }
         return view('articles.edit',compact('article'));
     }
 
     public function update(Request $request, Article $article/*,HtmlFilterService $htmlFilterService*/)
     {
         // UNSECURE
+
+        if(Auth::id() !== $article->user_id && !Auth::user()->isAdmin()){ {
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Not authorized'], 403);
+            }
+            return redirect()->route('articles.show', $article)->with('message','Not authorized');
+        }
         $articleData = $request->all();
 
         // SECURE
@@ -105,16 +116,17 @@ class ArticleController extends Controller
         
         return redirect()->route('articles.show', $article);
     }
-    
+    }
     public function destroy(Article $article, Request $request)
     {
         // SECURE
-        // if(Auth::id() !== $article->user_id){
-        //     return redirect()->route('articles.show', $article)->with('message','Not authorized');
-        // }
+        if(Auth::id() !== $article->user_id){
+        return redirect()->route('articles.show', $article)->with('message','Not authorized');
+        }
         
         $article->delete();
         
+
         if ($request->wantsJson()) {
             return response()->json(null, 204);
         }
