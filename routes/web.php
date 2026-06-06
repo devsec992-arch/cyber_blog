@@ -46,9 +46,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/download-privacy', [UserController::class,'download'])->name('download');
     
     // SECURE
-    //Route::middleware(['admin'])->prefix('dashboard')->group(function () {
+    Route::middleware(['admin'])->prefix('dashboard')->group(function () {
     // UNSECURE
-    Route::prefix('dashboard')->group(function () {
+   // Route::prefix('dashboard')->group(function () {
         Route::get('/', [AdminController::class,'dashboard'])->name('dashboard');
         Route::get('/articles', [AdminController::class,'articles'])->name('admin.articles');
         Route::get('/users', [AdminController::class,'users'])->name('admin.users');
