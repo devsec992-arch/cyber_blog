@@ -16,7 +16,7 @@ class AuthenticateUser
         if ($user) {
             $pepper = config('app.pepper');
             $passwordWithPepper = $credentials['password'] . $pepper . $user->salt;
-            dd($passwordWithPepper);
+            //dd($passwordWithPepper);
 
             if (Hash::check($passwordWithPepper, $user->password)) {
                 Auth::login($user);
