@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'auth' => \App\Http\Middleware\Authenticate::class,
             'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+            'block_suspicious_ips' => \App\Http\Middleware\BlockSuspiciosIPs::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
