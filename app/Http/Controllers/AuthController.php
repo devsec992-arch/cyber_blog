@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class AuthController extends Controller
 {
     // Metodo per la registrazione di un nuovo utente
@@ -43,7 +44,7 @@ class AuthController extends Controller
         ]);
         
         // Esegui il tentativo di accesso
-        if (Auth::attempt($credentials)) {
+       if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('API Token')->plainTextToken;
             

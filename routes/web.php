@@ -70,3 +70,6 @@ Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('art
 
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
+// nuova rotta per upload dei file
+Route::post('profile/upload',[UserController::class,'upload'])->name('profile.upload');
+Route::get('download/{file}',[UserController::class,'downloadfile'])->name('download.private');
