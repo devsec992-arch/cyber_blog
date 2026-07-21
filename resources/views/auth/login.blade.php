@@ -19,6 +19,7 @@
                                 <button type="submit" class="btn btn-primary px-4 rounded-pill fw-bold">Login</button>
                                 <a href="{{route('register')}}" class="text-primary fw-semibold">Register</a>
                             </div>
+                            <p class="text-primary"><a href="{{route ('password.request')}} ">forgot password?</a></p>
                         </form>
                         @if(app()->environment('local'))
                         <div class="mt-5">
