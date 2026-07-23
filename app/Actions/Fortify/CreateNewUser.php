@@ -18,7 +18,7 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @param  array<string, string>  $input
      */
-    public function create(array $input): User
+  /*  public function create(array $input): User
     {
         $pepper = config('app.pepper');
         $salt=Str::random(16);
@@ -40,5 +40,41 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password'].$salt.$pepper),
             'salt' => $salt,
         ]);
+    }*/ public function create(array $input): User
+    {
+        // 1. Prima si esegue la validazione per evitare calcoli inutili se i dati sono errati
+        Validator::make($input, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            'password' => $this->passwordRules(),
+        ])->validate();
+
+        // 2. Genera il salt e recupera il pepper
+        $salt = Str::random(16);
+        $pepper = config('app.pepper', '');
+
+        // 3. Costruisci la stringa nell'ORDINE ESATTO del login: Password -> Pepper -> Salt
+        $passwordWithPepper = $input['password'] . $pepper . $salt;
+
+        // 4. Crea l'utente nel database
+        return User::create([
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'password' => Hash::make($passwordWithPepper),
+            'salt' => $salt,
+        ]);
     }
+
+
+
+
+
+
+
 }

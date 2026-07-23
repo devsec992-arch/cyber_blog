@@ -20,7 +20,7 @@ class AuthController extends Controller
         ]);
         
         // Crea un nuovo utente
-        $user = \App\Models\User::create([
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),

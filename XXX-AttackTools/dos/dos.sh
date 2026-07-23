@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # URL della rotta da attaccare
-URL="http://127.0.0.1:8000/articles/3/comments"
+#URL="http://127.0.0.1:8000/articles/3/comments"
+URL="http://127.0.0.1:8000/articles/"
+
+
 
 # TOKEN
-CSRF_TOKEN="mgkT5i8sDa5JMKH9UoZfc4MVRvGIKB5bbBOrYx4X"
+#CSRF_TOKEN="mgkT5i8sDa5JMKH9UoZfc4MVRvGIKB5bbBOrYx4X"
+CSRF_TOKEN="CGl6NHUCxW1Y0JJPc3ZzrJsh1UGAaQvxFHXVIzwx"
+
 
 # Numero di richieste da inviare
 NUM_REQUESTS=20
